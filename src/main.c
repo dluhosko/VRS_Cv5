@@ -52,6 +52,7 @@ uint16_t value;
 
 int main(void)
 {
+  char slovo[15];
   int i;
   NVIC_init();
   adc_init();
@@ -82,6 +83,10 @@ int main(void)
   while (1)
   {
 	  i++;
+	  sprintf(slovo,"ADC: %d",value);
+      sendDATA(slovo);
+	  for(i=0;i<1000000;i++);
+
 
   }
   return 0;

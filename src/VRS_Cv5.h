@@ -11,4 +11,5 @@
 void adc_init(void);
 void NVIC_init(void);
 void USART_init(void);
+void sendDATA (char *text);
 #endif /* VRS_CV5_H_ */

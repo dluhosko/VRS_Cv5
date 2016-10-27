@@ -115,6 +115,24 @@ void USART_init(void)
 	  USART_Cmd(USART2, ENABLE);
 }
 
+void sendDATA (char *inputText)
+{
+
+	int i=0;
+	while (inputText[i])
+	{
+		USART_SendData(USART2 , inputText [i]);
+		while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);
+		i++;
+	}
+	USART_SendData(USART2,'\n');
+	while(USART_GetFlagStatus(USART2,USART_FLAG_TC)==RESET);
+	USART_SendData(USART2,'\r');
+	while(USART_GetFlagStatus(USART2,USART_FLAG_TC)==RESET);
+
+
+}
+
 
 
 
