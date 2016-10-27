@@ -51,17 +51,25 @@ SOFTWARE.
 uint16_t value;
 int formatS;
 
+//
+
+
 int main(void)
 {
+
   float hodnotaV=0;
   uint16_t celeCislo;
   uint16_t desatinneCislo;
-  formatS=1;
-  char slovo[15];
   int i;
+  char slovo[15];
+  formatS=1;
   NVIC_init();
   adc_init();
   USART_init();
+
+  USART_ClearITPendingBit(USART2, USART_IT_RXNE);
+  USART_ClearITPendingBit(USART2,USART_IT_TC);
+
 
 
   /**
@@ -86,20 +94,20 @@ int main(void)
 
   /* Infinite loop */
   while (1)
-  {
+  {/*
 	  if (formatS == 1)
-	  	  {
-	  	      sprintf(slovo,"ADC: %d",value);
-	  	  }
-	  	  if (formatS == 0)
-	  	  {
-	  		  hodnotaV= (3.3*100*value) / 4095;
-	  		  celeCislo = (uint16_t)hodnotaV/100;
-	  		  desatinneCislo = (uint16_t)hodnotaV%100;
-	  		  sprintf(slovo,"Voltage: %d . %d V",celeCislo,desatinneCislo);
-	  	  }
-	        sendDATA(slovo);
-	  	  for(i=0;i<1000000;i++);
+	  {
+	      sprintf(slovo,"ADC: %d",value);
+	  }
+	  if (formatS == 0)
+	  {
+		  hodnotaV= (3.3*100*value) / 4095;
+		  celeCislo = (uint16_t)hodnotaV/100;
+		  desatinneCislo = (uint16_t)hodnotaV%100;
+		  sprintf(slovo,"Voltage: %d . %d V",celeCislo,desatinneCislo);
+	  }
+      //sendDATA(slovo);*/
+	  dajDokopy(value);
 
 
   }
