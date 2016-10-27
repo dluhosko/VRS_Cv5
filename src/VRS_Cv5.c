@@ -11,6 +11,8 @@
 #include "stm32l1xx.h"
 
 extern uint16_t value;
+extern int formatS;
+
 
 
 
@@ -131,6 +133,27 @@ void sendDATA (char *inputText)
 	while(USART_GetFlagStatus(USART2,USART_FLAG_TC)==RESET);
 
 
+}
+void USART2_IRQHandler(void)
+{
+
+	char pom = 0;
+	if(USART_GetITStatus(USART2, USART_IT_RXNE) != RESET)
+	{
+		//USART_ClearITPendingBit(USART2, USART_IT_RXNE);  netreba -same sa to deletne
+		pom = USART_ReceiveData(USART2);
+		if(pom=='m')
+		{
+			if (formatS == 1)
+			{
+				formatS=0;
+			}
+			else
+			{
+				formatS=1;
+			}
+		}
+	}
 }
 
 

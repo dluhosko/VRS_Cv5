@@ -49,9 +49,14 @@ SOFTWARE.
 */
 
 uint16_t value;
+int formatS;
 
 int main(void)
 {
+  float hodnotaV=0;
+  uint16_t celeCislo;
+  uint16_t desatinneCislo;
+  formatS=1;
   char slovo[15];
   int i;
   NVIC_init();
@@ -82,10 +87,19 @@ int main(void)
   /* Infinite loop */
   while (1)
   {
-	  i++;
-	  sprintf(slovo,"ADC: %d",value);
-      sendDATA(slovo);
-	  for(i=0;i<1000000;i++);
+	  if (formatS == 1)
+	  	  {
+	  	      sprintf(slovo,"ADC: %d",value);
+	  	  }
+	  	  if (formatS == 0)
+	  	  {
+	  		  hodnotaV= (3.3*100*value) / 4095;
+	  		  celeCislo = (uint16_t)hodnotaV/100;
+	  		  desatinneCislo = (uint16_t)hodnotaV%100;
+	  		  sprintf(slovo,"Voltage: %d . %d V",celeCislo,desatinneCislo);
+	  	  }
+	        sendDATA(slovo);
+	  	  for(i=0;i<1000000;i++);
 
 
   }
